@@ -3,9 +3,7 @@ import axios from "axios";
 
 const Profile = () => {
   const [handle, setHandle] = useState("");
-  const [address, setAddress] = useState(
-    "0xCF1E6Ab1949D0573362f5278FAbCa4Ec74BE913C"
-  );
+  const [address, setAddress] = useState(process.env.WALLET_ADDR);
   const [profileId, setProfileId] = useState("");
   const [authResult, setAuthResult] = useState<any>(null);
   const [profileResult, setProfileResult] = useState<any>(null);
@@ -24,10 +22,13 @@ const Profile = () => {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.post("http://localhost:3000/createProfile", {
-        handle,
-        to: address,
-      });
+      const response = await axios.post(
+        "https://lensserver.onrender.com/createProfile",
+        {
+          handle,
+          to: address,
+        }
+      );
       setProfileResult(response.data);
       setIsLoggedIn(true); // Assume creating a profile also logs you in
     } catch (err: any) {
@@ -42,7 +43,7 @@ const Profile = () => {
     setError("");
     try {
       const response = await axios.get(
-        `http://localhost:3000/getManagedProfiles?walletAddress=${address}`
+        `https://lensserver.onrender.com/getManagedProfiles?walletAddress=${address}`
       );
       setManagedProfiles(response.data);
     } catch (err: any) {
@@ -59,10 +60,13 @@ const Profile = () => {
     setLoadingAuth(true);
     setError("");
     try {
-      const response = await axios.post("http://localhost:3000/loginProfile", {
-        address,
-        profile_id: profileId,
-      });
+      const response = await axios.post(
+        "https://lensserver.onrender.com/loginProfile",
+        {
+          address,
+          profile_id: profileId,
+        }
+      );
       setAuthResult(response.data);
       setIsLoggedIn(true); // Set login state to true upon successful login
     } catch (err: any) {
@@ -76,9 +80,12 @@ const Profile = () => {
     setPosting(true);
     setError("");
     try {
-      const response = await axios.post("http://localhost:3000/postContent", {
-        textMessage,
-      });
+      const response = await axios.post(
+        "https://lensserver.onrender.com/postContent",
+        {
+          textMessage,
+        }
+      );
       setPostResult("Content posted successfully!");
       setPostedContents((prevContents: any) => [...prevContents, textMessage]);
       console.log(response.data);
