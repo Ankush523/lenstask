@@ -4,7 +4,7 @@ import axios from "axios";
 const Profile = () => {
   const [handle, setHandle] = useState("");
   const [address, setAddress] = useState(
-    "0xCF1E6Ab1949D0573362f5278FAbCa4Ec74BE913C"
+    process.env.WALLET_ADDR
   );
   const [profileId, setProfileId] = useState("");
   const [authResult, setAuthResult] = useState<any>(null);
