@@ -5,15 +5,13 @@ import { LensClient, development, isRelaySuccess } from "@lens-protocol/client";
 import { Wallet } from "ethers";
 import axios from "axios";
 
-const wallet = new Wallet(
-  "e805da4a6e8970bd7b523b7b245f88a12918c06bbf1ca4d4d6a93cdfdfe50c57"
-);
-const pinataApiKey = "3908c92e7aefb1dc2389";
-const pinataSecretApiKey =
-  "546cd22c907dc06516dd9ace2e72549f5a3c650e6fe189227e90755420ce0f0d";
+const PK: any = process.env.PRIVATE_KEY;
+const wallet = new Wallet(PK);
+const pinataApiKey = process.env.PINATA_API_KEY;
+const pinataSecretApiKey = process.env.PINATA_SECRET_API_KEY;
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
